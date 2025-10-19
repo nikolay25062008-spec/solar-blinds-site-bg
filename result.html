@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <title>Резултат — Eclipse Solar Blinds</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .result-box {
+      margin: 40px auto;
+      max-width: 500px;
+      padding: 20px;
+      background: #2d2d2d;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.3em;
+      color: #fff;
+    }
+    .result-box strong { color: var(--accent1); }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Solar Wave Blinds">
+      <span>Solar Wave Blinds</span>
+    </a>
+    <nav>
+      <a href="index.html">Начало</a>
+      <a href="products.html">Продукти</a>
+      <a href="order.html">Поръчка</a>
+      <a href="about.html">За нас</a>
+      <a href="contact.html">Контакти</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1>Вашата оферта</h1>
+    <div class="result-box">
+      <p>Ориентировъчна цена: <strong id="price">0</strong> лв.</p>
+      <p>~ <strong id="euro">0</strong> €</p>
+    </div>
+    <p style="text-align:center;">Свържете се с нас за финална оферта и оглед.</p>
+  </main>
+
+  <footer>
+    <img src="logo.png" alt="Eclipse Solar Blinds">
+    © 2025 Eclipse Solar Blinds — Всички права запазени.
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const price = localStorage.getItem("offerPrice") || 0;
+      const euro = localStorage.getItem("offerEuro") || 0;
+      document.getElementById("price").textContent = price;
+      document.getElementById("euro").textContent = euro;
+    });
+  </script>
+</body>
+</html>

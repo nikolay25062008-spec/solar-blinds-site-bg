@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <title>Поръчка — Eclipse Solar Blinds</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .step {
+      display: none;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .step.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .quiz h3 { 
+      margin-bottom: 15px; 
+      font-size: 1.3em;
+      color: #333;
+    }
+    .quiz label { 
+      display: block; 
+      margin: 10px 0; 
+      cursor: pointer;
+      font-size: 1.1em;
+      color: #444;
+    }
+    .quiz input[type="radio"] {
+      margin-right: 8px;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .nav-buttons .btn {
+      min-width: 120px;
+    }
+    .result {
+      margin-top: 25px;
+      padding: 15px;
+      background: #f1f1f1;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.2em;
+      color: #333;
+    }
+    .result strong {
+      color: #4caf50;
+      font-size: 1.4em;
+    }
+
+    /* Калкулатори */
+    .calculators {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 40px;
+      justify-content: center;
+    }
+    .calculator {
+      flex: 1 1 350px;
+      max-width: 400px;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    .calculator h2 {
+      margin-bottom: 15px;
+      font-size: 1.3em;
+      color: #222;
+    }
+    .calculator input {
+      padding: 8px;
+      margin: 6px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 200px;
+    }
+    .calc-result {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Eclipse Solar Blinds">
+      <span>Solar Wave Blinds</span>
+    </a>
+    <nav>
+      <a href="index.html">Начало</a>
+      <a href="products.html">Продукти</a>
+      <a href="order.html" class="active">Поръчка</a>
+      <a href="about.html">За нас</a>
+      <a href="contact.html">Контакти</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1>Ориентировъчна цена</h1>
+    <div class="card" style="text-align: center;">
+      <p>Отговорете на няколко кратки въпроса и ще получите ориентировъчна цена в лева и евро.</p>
+
+      <form id="quizForm" class="quiz">
+        <!-- Въпроси -->
+        <div class="step active">
+          <h3>1. Какъв тип щори желаете?</h3>
+          <label><input type="radio" name="type" value="650"> Ролетни външни</label>
+          <label><input type="radio" name="type" value="400"> Хоризонтални вътрешни</label>
+          <label><input type="radio" name="type" value="500"> Вертикални вътрешни</label>
+        </div>
+
+        <div class="step">
+          <h3>2. Какъв е приблизителният размер на прозореца?</h3>
+          <label><input type="radio" name="size" value="0"> Малък (до 1м ширина)</label>
+          <label><input type="radio" name="size" value="100"> Среден (1–2м ширина)</label>
+          <label><input type="radio" name="size" value="200"> Голям (над 2м ширина)</label>
+        </div>
+
+        <div class="step">
+          <h3>3. Колко прозореца ще покривате?</h3>
+          <label><input type="radio" name="count" value="1"> 1</label>
+          <label><input type="radio" name="count" value="2"> 2</label>
+          <label><input type="radio" name="count" value="3"> 3</label>
+          <label><input type="radio" name="count" value="5"> 4 или повече</label>
+        </div>
+
+        <div class="step">
+          <h3>4. Какъв е етажът на жилището/офиса?</h3>
+          <label><input type="radio" name="floor" value="0"> Нисък (1–3)</label>
+          <label><input type="radio" name="floor" value="100"> Среден (4–8)</label>
+          <label><input type="radio" name="floor" value="150"> Висок (9+)</label>
+        </div>
+
+        <div class="step">
+          <h3>5. Имате ли предпочитан цвят?</h3>
+          <label><input type="radio" name="color" value="0"> Бял</label>
+          <label><input type="radio" name="color" value="50"> Черен</label>
+          <label><input type="radio" name="color" value="30"> Сив</label>
+          <label><input type="radio" name="color" value="70"> Дървесен ефект</label>
+        </div>
+
+        <div class="step">
+          <h3>6. Желаете ли автоматизация (електрическо управление)?</h3>
+          <label><input type="radio" name="auto" value="0"> Не</label>
+          <label><input type="radio" name="auto" value="250"> Да</label>
+        </div>
+
+        <div class="step">
+          <h3>7. Желаете ли интеграция със Smart Home система?</h3>
+          <label><input type="radio" name="smart" value="0"> Не</label>
+          <label><input type="radio" name="smart" value="150"> Да</label>
+        </div>
+
+        <div class="step">
+          <h3>8. Колко често ще използвате щорите?</h3>
+          <label><input type="radio" name="usage" value="0"> Рядко</label>
+          <label><input type="radio" name="usage" value="0"> Всеки ден</label>
+        </div>
+
+        <div class="step">
+          <h3>9. Желаете ли удължена гаранция (5 години)?</h3>
+          <label><input type="radio" name="warranty" value="0"> Не</label>
+          <label><input type="radio" name="warranty" value="100"> Да</label>
+        </div>
+
+        <div class="step">
+          <h3>10. Желаете ли монтаж от наш екип?</h3>
+          <label><input type="radio" name="install" value="100"> Да</label>
+          <label><input type="radio" name="install" value="0"> Не</label>
+        </div>
+
+        <!-- Бутони -->
+        <div class="nav-buttons">
+          <button type="button" class="btn ghost" id="prevBtn">Назад</button>
+          <button type="button" class="btn" id="nextBtn">Напред</button>
+        </div>
+      </form>
+
+      <div id="result" class="result">Попълнете въпросите и натиснете "Изчисли цена".</div>
+    </div>
+
+    <!-- Два калкулатора един до друг -->
+    <div class="calculators">
+      <!-- Калкулатор за спестена енергия -->
+      <div class="calculator">
+        <h2>Калкулатор за спестена енергия</h2>
+        <p>Въведете площ на прозорците и средна месечна сметка за ток:</p>
+        <input type="number" id="area" placeholder="Площ на прозорците (кв.м)">
+        <br>
+        <input type="number" id="bill" placeholder="Месечна сметка (лв)">
+        <br>
+        <button class="btn" onclick="calculateSavings()">Изчисли</button>
+        <div id="calcResult" class="calc-result"></div>
+      </div>
+
+      <!-- Калкулатор за ROI -->
+      <div class="calculator">
+        <h2>Калкулатор за възвръщаемост</h2>
+        <p>Въведете ориентировъчна цена на щорите и месечна сметка за ток:</p>
+        <input type="number" id="roiPrice" placeholder="Цена на щорите (лв)">
+        <br>
+        <input type="number" id="roiBill" placeholder="Месечна сметка (лв)">
+        <br>
+        <label for="roiPercent">Очаквано спестяване (%):</label>
+        <input type="number" id="roiPercent" value="25">
+        <br>
+        <button class="btn" onclick="calculateROI()">Изчисли</button>
+        <div id="roiResult" class="calc-result"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <img src="logo.png" alt="Eclipse Solar Blinds">
+    © 2025 Eclipse Solar Blinds — Всички права запазени.
+  </footer>
+
+  <script>
+    const steps = document.querySelectorAll(".step");
+    let currentStep = 0;
+
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const resultDiv = document.getElementById("result");
+
+    function showStep(n) {
+      steps.forEach((step, i) => {
+        step.classList.remove("active");
+        if(i === n) {
+          step.classList.add("active");
+        }
+      });
+      prevBtn.style.visibility = n === 0 ? "hidden" : "visible";
+      nextBtn.textContent = n === steps.length - 1 ? "Изчисли цена" : "Напред";
+    }
+
+    function calculatePrice(){
+      const form = document.getElementById("quizForm");
+      let total = 0;
+      const data = new FormData(form);
+      for (let [key, value] of data.entries()){
+        total += parseInt(value);
+      }
+      const count = parseInt(data.get("count") || 1);
+      if(count > 1){
+        total = total * count;
+      }
+      const euro = (total / 1.95).toFixed(2);
+      resultDiv.innerHTML = `Ориентировъчна цена: <strong>${total} лв.</strong> (~${euro} €)`;
+      resultDiv.scrollIntoView({behavior: "smooth"});
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if(currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if(currentStep < steps.length - 1){
+        currentStep++;
+        showStep(currentStep);
+      } else {
+        calculatePrice();
+      }
+    });
+
+    showStep(currentStep);
+
+    // Калкулатор за енергия
+    function calculateSavings() {
+      const area = parseFloat(document.getElementById("area").value) || 0;
+      const bill = parseFloat(document.getElementById("bill").value) || 0;
+      if(area <= 0 || bill <= 0) {
+        document.getElementById("calcResult").innerText = "Моля, въведете валидни стойности.";
+        return;
+      }
+      const savingsPercent = Math.min(30, area * 2); // до 30% спестяване
+      const savingsMoney = (bill * savingsPercent / 100).toFixed(2);
+      document.getElementById("calcResult").innerText =
+        `Можете да спестите до ${savingsPercent}% (~${savingsMoney} лв./месечно).`;
+    }
+
+    // Калкулатор ROI
+    function calculateROI() {
+      const price = parseFloat(document.getElementById("roiPrice").value) || 0;
+      const bill = parseFloat(document.getElementById("roiBill").value) || 0;
+      const percent = parseFloat(document.getElementById("roiPercent").value) || 0;
+
+      if(price <= 0 || bill <= 0 || percent <= 0) {
+        document.getElementById("roiResult").innerText = "Моля, въведете валидни стойности.";
+        return;
+      }
+
+      const monthlySavings = bill * percent / 100;
+      const paybackMonths = (price / monthlySavings).toFixed(1);
+      const paybackYears = (paybackMonths / 12).toFixed(1);
+
+      document.getElementById("roiResult").innerHTML =
+        `Инвестицията от <strong>${price} лв.</strong> се изплаща за 
+        ~<strong>${paybackMonths} месеца</strong> (~${paybackYears} години).`;
+    }
+  </script>
+</body>
+</html>
