@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <title>Eclipse — Соларни щори</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .carousel img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+    .carousel img.active {
+      opacity: 1;
+    }
+    .partners-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .partners-logos a img {
+      height: 60px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+      background: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .partners-logos a img:hover {
+      transform: scale(1.1);
+    }
+
+
+
+
+    .site-notice {
+      background-color: #d32f2f;
+      color: #fff;
+      text-align: center;
+      padding: 10px 40px;
+      font-size: 0.95em;
+      position: relative;
+      font-weight: 500;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .site-notice button {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0 8px;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .site-notice button:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    
+     .media-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+     }
+
+  </style>
+</head>
+<body>
+  <div class="social-bar">
+  <a href="https://www.facebook.com/people/Соларни-щори-Eclipse/61582142675145/?mibextid=wwXIfr&rdid=zWy7yOrU32rBTQrZ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Z3MopANBD%2F%3Fmibextid%3DwwXIfr" target="_blank" class="social-icon fb" title="Facebook">
+    <img src="images/facebook.svg" alt="Facebook">
+  </a>
+  <a href="https://www.instagram.com/eclipsesolarblinds?igsh=MXNscTJiYjN6NHY5bA%3D%3D&utm_source=qr" target="_blank" class="social-icon ig" title="Instagram">
+    <img src="images/instagram.svg" alt="Instagram">
+  </a>
+  <a href="https://www.tiktok.com/@eclipse_solar_bli?_r=1&_t=ZN-912cCXlW5Ti" target="_blank" class="social-icon ig" title="Tik Tok">
+    <img src="images/tiktok.svg" alt="Tik Tok">
+  </a>
+</div>
+    <div class="site-notice" id="siteNotice">
+    ⚠️ Това е ученически проект, създаден с образователна цел. Информацията не представлява реална оферта.
+    <button id="closeNotice">×</button>
+  </div>
+  <header class="wrap">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Eclipse Solar Blinds">
+      <span>Eclipse Solar Blinds</span>
+    </a>
+    <nav>
+      <a href="index.html">Начало</a>
+      <a href="products.html">Продукти</a>
+      <a href="order.html">Поръчка</a>
+      <a href="about.html">За нас</a>
+      <a href="contact.html">Контакти</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero card fade-in">
+      <div class="carousel">
+        <img src="images/hero-blinds.jpg" alt="Соларни щори" class="active">
+        <img src="images/roller-blinds.jpg" alt="Ролетни щори">
+        <img src="images/vertical-blinds.jpg" alt="Вертикални щори">
+      </div>
+      <h1>Соларни щори, които произвеждат енергия</h1>
+      <p class="lead">
+        Интелигентно решение за дома и офиса — щори, които осигуряват комфортна сянка и събират енергия от слънцето.
+      </p>
+      <div style="margin-top:18px">
+        <a class="btn" href="order.html">Поръчай</a>
+        <a class="btn ghost" href="products.html">Виж модели</a>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <h2>Защо да изберете Eclipse Solar Blinds?</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Двойна функция:</strong> защита от слънце + производство на електроенергия.</li>
+          <li><strong>Икономия:</strong> намаляване на разходите за ток.</li>
+          <li><strong>Екология:</strong> чиста и възобновяема енергия.</li>
+          <li><strong>Дизайн:</strong> модерни и стилни модели за всеки интериор и фасада.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <h2>Как работи?</h2>
+      <div  class="media-row">
+        <img src="images/solar-energy.jpg" alt="Соларна енергия" style="width:100%;border-radius:10px;margin-bottom:15px; max-width: 550px; height: auto;">
+        <video controls autoplay muted loop width="100%"; style="max-width: 685px; height: auto;">
+     <source src="images/solar-energy.mp4" type="video/mp4">
+     Вашият браузър не поддържа видео елемента.
+    </video>
+        </div>
+        <p>
+          Във всяка щора са вградени миниатюрни соларни панели, които улавят светлината и я превръщат в електроенергия.
+        </p>
+      
+    </section>
+
+    <section class="fade-in">
+      <h2>Изберете вашия модел</h2>
+      <p>
+        Разгледайте <a href="products.html">нашите продукти</a>, сравнете характеристиките им и изберете щората, която най-добре отговаря на вашите нужди.
+      </p>
+    </section>
+
+    <section class="fade-in">
+      <h2>Нашите партньори</h2>
+      <div class="card">
+        <p>Работим с водещи компании в сферата на соларната енергия и строителството:</p>
+        <div class="partners-logos">
+          <a href="https://solarhouse.bg" target="_blank"><img src="images/solarpro-logo.png" alt="Solarpro"></a>
+          <a href="https://www.schueco.com" target="_blank"><img src="images/schuco-logo.png" alt="Schüco"></a>
+          <a href="https://elimex.bg" target="_blank"><img src="images/huawei-solar-logo.png" alt="Huawei Solar"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <img src="logo.png" alt="Eclipse Solar Blinds">
+    © 2025 Eclipse Solar Blinds — Всички права запазени.
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const faders = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      faders.forEach(el => observer.observe(el));
+
+      const slides = document.querySelectorAll(".carousel img");
+      let index = 0;
+      setInterval(() => {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+      }, 4000);
+    });
+  </script>
+
+  <script>
+    document.getElementById('closeNotice').addEventListener('click', () => {
+      const notice = document.getElementById('siteNotice');
+      notice.style.opacity = '0';
+      notice.style.transform = 'translateY(-10px)';
+      setTimeout(() => notice.style.display = 'none', 400);
+    });
+  </script>
+</body>
+</html>
+
