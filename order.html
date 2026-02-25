@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Поръчка — Eclipse Solar Blinds</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Intro and progress */
+    .quiz-intro { margin: 0 auto 14px; max-width: 720px; color:#333; }
+    .progress {
+      width: 100%;
+      max-width: 720px;
+      margin: 10px auto 16px;
+      height: 10px;
+      background: #eef3ff;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      width: 0%; height: 100%;
+      background: linear-gradient(90deg, var(--accent,#0b81ff), #7bb3ff);
+      transition: width .35s ease;
+    }
+
+    .step {
+      display: none;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      position: relative;
+    }
+    .step.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      animation: stepIn .4s ease both;
+    }
+    @keyframes stepIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
+    .error-msg {
+      color: #d32f2f;
+      font-size: 0.95em;
+      margin-top: 8px;
+      display: none;
+    }
+    .step.error .error-msg { display: block; }
+    .shake { animation: shake .35s ease-in-out 0s 2; }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-6px); }
+      100% { transform: translateX(0); }
+    }
+    
+    .step.active .error-msg.show-on-enter { display:block; }
+    .quiz h3 { 
+      margin-bottom: 15px; 
+      font-size: 1.3em;
+      color: #333;
+    }
+    .quiz h3 { 
+      margin-bottom: 15px; 
+      font-size: 1.3em;
+      color: #333;
+    }
+    .quiz label { 
+      display: block; 
+      margin: 10px 0; 
+      cursor: pointer;
+      font-size: 1.1em;
+      color: #444;
+    }
+    .quiz input[type="radio"],
+    .quiz input[type="number"] {
+      margin-right: 8px;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .nav-buttons .btn {
+      min-width: 120px;
+    }
+    .result {
+      margin-top: 25px;
+      padding: 15px;
+      background: #f1f1f1;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.2em;
+      color: #333;
+    }
+    .result strong {
+      color: #4caf50;
+      font-size: 1.4em;
+    }
+    .window-inputs {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .window-inputs input {
+      width: 100px;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .add-window {
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 20px;
+      transition: 0.3s;
+    }
+    .add-window:hover { background: #45a049; }
+
+    .site-notice {
+      background-color: #d32f2f;
+      color: #fff;
+      text-align: center;
+      padding: 10px 40px;
+      font-size: 0.95em;
+      position: relative;
+      font-weight: 500;
+      animation: fadeIn 0.8s ease;
+    }
+    .site-notice button {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0 8px;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+    .site-notice button:hover { background: rgba(255,255,255,0.35); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Inquiry form */
+    .inquiry-form { margin-top:16px; text-align:left; max-width:720px; margin-left:auto; margin-right:auto; }
+    .inquiry-form .fields { display:flex; gap:10px; flex-wrap:wrap; }
+    .inquiry-form label { display:flex; flex-direction:column; gap:6px; flex:1 1 200px; font-weight:500; color:#333; }
+    .inquiry-form input { padding:10px 12px; border:1px solid #dfe7ff; border-radius:10px; font-size:14px; }
+    .inquiry-form .actions { margin-top:12px; display:flex; align-items:center; gap:10px; }
+    .inquiry-form .hidden { display:none; }
+    .inquiry-form .hint { display:block; margin-top:8px; color:#777; font-size:12px; }
+  </style>
+</head>
+
+<body>
+  <div class="social-bar">
+  <a href="https://www.facebook.com/people/Соларни-щори-Eclipse/61582142675145/?mibextid=wwXIfr&rdid=zWy7yOrU32rBTQrZ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Z3MopANBD%2F%3Fmibextid%3DwwXIfr" target="_blank" rel="noopener noreferrer" class="social-icon fb" title="Facebook">
+    <img src="images/facebook.svg" alt="Facebook">
+  </a>
+  <a href="https://www.instagram.com/eclipsesolarblinds?igsh=MXNscTJiYjN6NHY5bA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="social-icon ig" title="Instagram">
+    <img src="images/instagram.svg" alt="Instagram">
+  </a>
+  <a href="https://www.tiktok.com/@eclipse_solar_bli?_r=1&_t=ZN-912cCXlW5Ti" target="_blank" rel="noopener noreferrer" class="social-icon ig" title="Tik Tok">
+    <img src="images/tiktok.svg" alt="Tik Tok">
+  </a>
+</div>
+  <div class="site-notice" id="siteNotice">
+    ⚠️ Това е ученически проект, създаден с образователна цел. Информацията не представлява реална оферта.
+    <button id="closeNotice">×</button>
+  </div>
+
+  <header class="wrap">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Eclipse Solar Blinds">
+      <span>Eclipse Solar Blinds</span>
+    </a>
+    <input type="checkbox" id="nav-check" class="nav-check" aria-hidden="true">
+    <label for="nav-check" class="nav-toggle" aria-label="Меню" title="Меню">
+      <span></span><span></span><span></span>
+    </label>
+    <label for="nav-check" class="nav-overlay" aria-hidden="true"></label>
+    <nav>
+      <a href="index.html">Начало</a>
+      <a href="products.html">Продукти</a>
+      <a href="order.html" class="active">Поръчка</a>
+      <a href="about.html">За нас</a>
+      <a href="contact.html">Контакти</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1>Ориентировъчна цена</h1>
+    <div class="card" style="text-align: center;">
+      <div class="quiz-intro">
+        <h2 style="margin:0 0 6px;">Бърза ориентировъчна оферта</h2>
+        <p style="margin:0; color:#555;">Отговорете на 5 кратки въпроса (~1 мин). Накрая ще видите ориентировъчна цена и възвръщаемост.</p>
+      </div>
+      <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+
+      <form id="quizForm" class="quiz">
+
+        <div class="step active" data-require="radio" data-name="type">
+          <h3>1. Изберете тип решение</h3>
+          <p style="color:#666; margin-top:-6px;">Къде и как искате да използвате щорите/навеса?</p>
+          <label><input type="radio" name="type" value="300"> Соларен навес — сянка + производство на енергия за тераси/двор</label>
+          <label><input type="radio" name="type" value="650"> Външни ролетни щори — устойчиви на дъжд и вятър</label>
+          <label><input type="radio" name="type" value="400"> Вътрешни хоризонтални щори — класически дизайн за офиси и домове</label>
+          <label><input type="radio" name="type" value="500"> Вътрешни вертикални щори — подходящи за витрини и големи прозорци</label>
+          <p class="error-msg">Моля, изберете тип решение, за да продължите.</p>
+        </div>
+
+        <div class="step" data-require="area">
+          <h3>2. Размери (ширина × височина в метри)</h3>
+          <p style="color:#666; margin-top:-6px;">Пример: 1.20 × 1.50. Добавете всеки прозорец поотделно.</p>
+          <div id="windowsContainer">
+            <div class="window-inputs">
+              <input type="number" step="0.01" placeholder="Ширина (м)" class="width">
+              <input type="number" step="0.01" placeholder="Височина (м)" class="height">
+            </div>
+          </div>
+          <button type="button" class="add-window" onclick="addWindow()" title="Добави още прозорец">+</button>
+          <p id="totalArea" style="margin-top:10px; font-weight:bold;"></p>
+          <p class="error-msg">Моля, въведете валидни стойности за поне един прозорец (ширина и височина в метри).</p>
+        </div>
+
+        <div class="step" data-require="radio" data-name="auto">
+          <h3>3. Автоматизация</h3>
+          <p style="color:#666; margin-top:-6px;">Автоматично управление (таймер/сензор за слънце/вятър). +250 лв</p>
+          <label><input type="radio" name="auto" value="0"> Без автоматизация</label>
+          <label><input type="radio" name="auto" value="250"> С автоматизация</label>
+          <p class="error-msg">Моля, изберете дали желаете автоматизация.</p>
+        </div>
+
+        <div class="step" data-require="radio" data-name="smart">
+          <h3>4. Интеграция със Smart Home</h3>
+          <p style="color:#666; margin-top:-6px;">Съвместимост с Google Home / Alexa / HomeKit. +150 лв</p>
+          <label><input type="radio" name="smart" value="0"> Без Smart Home</label>
+          <label><input type="radio" name="smart" value="150"> С интеграция Smart Home</label>
+          <p class="error-msg">Моля, изберете дали желаете интеграция.</p>
+        </div>
+
+        <div class="step" data-require="number" data-id="electricBill">
+          <h3>5. Месечна сметка за ток (приблизително)</h3>
+          <p style="color:#666; margin-top:-6px;">Помага за по-точна оценка на възвръщаемостта. Пример: 150</p>
+          <input type="number" id="electricBill" placeholder="Сума в лева" style="padding:8px; width:220px;">
+          <p class="error-msg">Моля, въведете число по-голямо от 0 (в лева).</p>
+        </div>
+
+        <div class="step">
+          <h3>6. Резултат</h3>
+          <p>След изчисление ще видите ориентировъчната цена и възвръщаемостта. Данните са ориентировъчни и зависят от изложение/монтаж.</p>
+        </div>
+
+        <div class="nav-buttons">
+          <button type="button" class="btn ghost" id="prevBtn">Назад</button>
+          <button type="button" class="btn" id="nextBtn">Напред</button>
+        </div>
+      </form>
+
+      <div id="result" class="result">Попълнете въпросите, за да получите резултат.</div>
+
+      <form name="order-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success.html" class="inquiry-form">
+        <input type="hidden" name="form-name" value="order-inquiry">
+        <input type="hidden" name="summary" id="inquirySummary">
+        <p class="hidden"><label>Не попълвай: <input name="bot-field"></label></p>
+        <div class="fields">
+          <label>Име
+            <input type="text" name="name" placeholder="Вашето име" required>
+          </label>
+          <label>Имейл
+            <input type="email" name="email" placeholder="name@example.com" required>
+          </label>
+          <label>Телефон
+            <input type="tel" name="phone" placeholder="+359 ..." pattern="^[0-9+\-\s]{7,}$" title="Въведете валиден телефон" required>
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn" id="inquirySubmit" disabled>Изпрати запитване</button>
+          <a href="#" id="mailtoFallback" class="btn ghost" role="button">Изпрати чрез Gmail</a>
+          <button type="button" id="copySummary" class="btn ghost">Копирай резюме</button>
+        </div>
+        <small class="hint">С изпращането приемате обработката на данните според политиката за поверителност.</small>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <img src="logo.png" alt="Eclipse Solar Blinds">
+    © 2025 Eclipse Solar Blinds — Всички права запазени.
+  </footer>
+
+  <script>
+    const steps = document.querySelectorAll(".step");
+    let currentStep = 0;
+    const resultDiv = document.getElementById("result");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function updateProgress(n){
+      const totalQuestionSteps = 5; // steps that are questions (exclude result)
+      const currentDisplay = Math.min(n+1, totalQuestionSteps);
+      const percent = Math.max(0, Math.min(100, Math.round(currentDisplay/totalQuestionSteps*100)));
+      const bar = document.getElementById('progressBar');
+      if (bar) bar.style.width = percent + '%';
+    }
+
+    function showStep(n) {
+      steps.forEach((s, i) => {
+        s.classList.remove("active");
+        if (i === n) s.classList.add("active");
+      });
+      prevBtn.style.visibility = n === 0 ? "hidden" : "visible";
+      nextBtn.textContent = n === steps.length - 1 ? "Изчисли" : "Напред";
+      updateProgress(n);
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        setTimeout(() => {
+          steps[n].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      }
+    }
+
+    function addWindow() {
+      const container = document.getElementById("windowsContainer");
+      const div = document.createElement("div");
+      div.className = "window-inputs";
+      div.innerHTML = `
+        <input type="number" step="0.01" placeholder="Ширина" class="width">
+        <input type="number" step="0.01" placeholder="Височина" class="height">
+      `;
+      container.appendChild(div);
+    }
+
+    function calculateTotalArea() {
+      const widths = document.querySelectorAll(".width");
+      const heights = document.querySelectorAll(".height");
+      let total = 0;
+      widths.forEach((w, i) => {
+        const width = parseFloat(w.value) || 0;
+        const height = parseFloat(heights[i].value) || 0;
+        total += width * height;
+      });
+      document.getElementById("totalArea").innerText = `Обща площ: ${total.toFixed(2)} м²`;
+      return total;
+    }
+
+    function calculateResults() {
+      const form = new FormData(document.getElementById("quizForm"));
+      const type = parseFloat(form.get("type")) || 0;
+      const auto = parseFloat(form.get("auto")) || 0;
+      const smart = parseFloat(form.get("smart")) || 0;
+      const area = calculateTotalArea();
+      const bill = parseFloat(document.getElementById("electricBill").value) || 0;
+
+      let total = (type + auto + smart) * (area || 1);
+      const euro = (total / 1.95).toFixed(2);
+
+      const savingsPercent = Math.min(30, area * 5);
+      const monthlySavings = bill * savingsPercent / 100;
+      const paybackMonths = (total / monthlySavings).toFixed(1);
+      const paybackYears = (paybackMonths / 12).toFixed(1);
+
+      resultDiv.innerHTML = `
+        💰 Ориентировъчна цена: <strong>${total.toFixed(2)} лв.</strong> (~${euro} €)<br>
+        ⚡ Потенциално спестяване: ~${savingsPercent}% (${monthlySavings.toFixed(2)} лв./месец)<br>
+        ⏳ Възвръщаемост: ~${paybackYears} години (${paybackMonths} месеца)
+      `;
+      // Build summary for inquiry form
+      const typeMap = { '300':'Соларен навес', '650':'Външни ролетни щори', '400':'Вътрешни хоризонтални щори', '500':'Вътрешни вертикални щори' };
+      const typeVal = String(form.get('type') || '');
+      const typeLabel = typeMap[typeVal] || '—';
+      const autoLabel = (String(form.get('auto')||'0') === '250') ? 'Да' : 'Не';
+      const smartLabel = (String(form.get('smart')||'0') === '150') ? 'Да' : 'Не';
+      const summary = `Тип: ${typeLabel}\nПлощ: ${area.toFixed(2)} м²\nАвтоматизация: ${autoLabel}\nSmart Home: ${smartLabel}\nСметка за ток: ${bill} лв\nЦена: ${total.toFixed(2)} лв (~${euro} €)\nСпестяване: ~${savingsPercent}% (${monthlySavings.toFixed(2)} лв/м)\nВъзвръщаемост: ~${paybackYears} г. (${paybackMonths} м.)`;
+      const hidden = document.getElementById('inquirySummary');
+      if (hidden) hidden.value = summary;
+      const submitBtn = document.getElementById('inquirySubmit');
+      if (submitBtn) submitBtn.disabled = false;
+      window.inquirySummaryText = summary;
+      if (typeof updateMailto === 'function') updateMailto();
+    }
+
+    function validateStep(index) {
+      const step = steps[index];
+      step.classList.remove('error','shake');
+      const type = step.getAttribute('data-require');
+      if (!type) return true;
+      let valid = true;
+      if (type === 'radio') {
+        const name = step.getAttribute('data-name');
+        valid = !!document.querySelector(`input[name="${name}"]:checked`);
+      } else if (type === 'area') {
+        const widths = document.querySelectorAll('.width');
+        const heights = document.querySelectorAll('.height');
+        valid = false;
+        for (let i=0;i<widths.length;i++) {
+          const w = parseFloat(widths[i].value);
+          const h = parseFloat(heights[i].value);
+          if (w>0 && h>0) { valid = true; break; }
+        }
+        if (valid) calculateTotalArea();
+      } else if (type === 'number') {
+        const id = step.getAttribute('data-id');
+        const val = parseFloat(document.getElementById(id).value);
+        valid = !!(val && val>0);
+      }
+      if (!valid) {
+        step.classList.add('error');
+        // restart shake reliably on the visible container
+        const target = step.closest('.card') || step;
+        target.classList.remove('shake');
+        void target.offsetWidth; // force reflow
+        target.classList.add('shake');
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+      return valid;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      if (!validateStep(currentStep)) return;
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      } else {
+        calculateResults();
+      }
+    });
+    prevBtn.addEventListener("click", () => {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+
+    // Initialize progress on load
+    updateProgress(currentStep);
+
+    // Mailto fallback updater
+    function updateMailto(){
+      const mailto = document.getElementById('mailtoFallback');
+      if (!mailto) return;
+      const name = (document.querySelector('.inquiry-form input[name="name"]')?.value||'').trim();
+      const email = (document.querySelector('.inquiry-form input[name="email"]')?.value||'').trim();
+      const phone = (document.querySelector('.inquiry-form input[name="phone"]')?.value||'').trim();
+      const contact = `Данни за контакт:\nИме: ${name}\nИмейл: ${email}\nТелефон: ${phone}`;
+      const subject = encodeURIComponent('Запитване от калкулатор�� Eclipse');
+      const bodyText = `${contact}\n\nИзбор и резултат:\n${window.inquirySummaryText||''}`;
+      const body = encodeURIComponent(bodyText);
+      // Gmail compose URL
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=eclipsesolarblinds@gmail.com&su=${subject}&body=${body}`;
+      mailto.dataset.gmail = gmailUrl;
+    }
+    document.querySelectorAll('.inquiry-form input').forEach(inp=>{
+      inp.addEventListener('input', updateMailto);
+    });
+
+    // Handle Gmail compose reliably on click
+    document.getElementById('mailtoFallback')?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const name = (document.querySelector('.inquiry-form input[name="name"]')?.value||'').trim();
+      const email = (document.querySelector('.inquiry-form input[name="email"]')?.value||'').trim();
+      const phone = (document.querySelector('.inquiry-form input[name="phone"]')?.value||'').trim();
+      const summary = window.inquirySummaryText || '';
+      if (!summary) {
+        alert('Първо попълнете въпросите и натиснете Изчисли, за да генерираме оферта.');
+        return;
+      }
+      const contact = `Данни за контакт:\nИме: ${name}\nИмейл: ${email}\nТелефон: ${phone}`;
+      const subject = encodeURIComponent('Запитване от калкулатора Eclipse');
+      const body = encodeURIComponent(`${contact}\n\nИзбор и резултат:\n${summary}`);
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=eclipsesolarblinds@gmail.com&su=${subject}&body=${body}`;
+
+      // Prefer native share on mobile
+      if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) {
+        navigator.share({ title: 'Запитване от калкулатора Eclipse', text: `${contact}\n\nИзбор и резултат:\n${summary}` })
+          .catch(()=>{
+            const win = window.open(gmailUrl, '_blank', 'noopener');
+            if (!win || win.closed || typeof win.closed === 'undefined') {
+              // fallback: navigate current tab
+              window.location.href = gmailUrl;
+            }
+          });
+        return;
+      }
+
+      // Desktop: try to open in new tab synchronously
+      const win = window.open(gmailUrl, '_blank', 'noopener');
+      if (!win || win.closed || typeof win.closed === 'undefined') {
+        // fallback: navigate current tab
+        window.location.href = gmailUrl;
+      }
+    });
+
+    // Copy summary to clipboard
+    document.getElementById('copySummary')?.addEventListener('click', ()=>{
+      const name = (document.querySelector('.inquiry-form input[name="name"]')?.value||'').trim();
+      const email = (document.querySelector('.inquiry-form input[name="email"]')?.value||'').trim();
+      const phone = (document.querySelector('.inquiry-form input[name="phone"]')?.value||'').trim();
+      const text = `Данни за контакт:\nИме: ${name}\nИмейл: ${email}\nТелефон: ${phone}\n\nИзбор и резултат:\n${window.inquirySummaryText||''}`;
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(text).then(()=>alert('Съдържанието е копирано. Поставете го в имейл.'))
+          .catch(()=>alert('Копирането не бе успешно.'));
+      } else {
+        alert('Копирането не се поддържа от браузъра.');
+      }
+    });
+
+    // Live validation events
+    document.querySelectorAll('input[type="radio"]').forEach(r => {
+      r.addEventListener('change', (e) => {
+        const step = e.target.closest('.step');
+        if (step) {
+          step.classList.remove('error','shake');
+        }
+      });
+    });
+
+    const billInput = document.getElementById('electricBill');
+    if (billInput) {
+      billInput.addEventListener('input', () => {
+        const step = billInput.closest('.step');
+        if (parseFloat(billInput.value) > 0 && step) {
+          step.classList.remove('error','shake');
+        }
+      });
+    }
+
+    document.addEventListener("input", e => {
+      if (e.target.classList.contains("width") || e.target.classList.contains("height")) {
+        calculateTotalArea();
+        // clear error for area step if valid
+        const areaStep = document.querySelector('.step[data-require="area"]');
+        if (areaStep) {
+          let valid = false;
+          const widths = document.querySelectorAll('.width');
+          const heights = document.querySelectorAll('.height');
+          for (let i=0;i<widths.length;i++) {
+            const w = parseFloat(widths[i].value);
+            const h = parseFloat(heights[i].value);
+            if (w>0 && h>0) { valid = true; break; }
+          }
+          if (valid) areaStep.classList.remove('error','shake');
+        }
+      }
+    });
+
+    showStep(currentStep);
+
+    document.getElementById("closeNotice").addEventListener("click", () => {
+      const notice = document.getElementById("siteNotice");
+      notice.style.opacity = '0';
+      notice.style.transform = 'translateY(-10px)';
+      setTimeout(() => notice.style.display = 'none', 400);
+    });
+  </script>
+</body>
+</html>
