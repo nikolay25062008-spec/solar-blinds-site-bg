@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакти — Eclipse Solar Blinds</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .site-notice {
+      background-color: #d32f2f;
+      color: #fff;
+      text-align: center;
+      padding: 10px 40px;
+      font-size: 0.95em;
+      position: relative;
+      font-weight: 500;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .site-notice button {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0 8px;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .site-notice button:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+
+
+  </style>
+</head>
+<div class="site-notice" id="siteNotice">
+    ⚠️ Това е ученически проект, създаден с образователна цел. Информацията не представлява реална оферта.
+    <button id="closeNotice">×</button>
+  </div>
+<body>
+  <div class="social-bar">
+  <a href="https://www.facebook.com/people/Соларни-щори-Eclipse/61582142675145/?mibextid=wwXIfr&rdid=zWy7yOrU32rBTQrZ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Z3MopANBD%2F%3Fmibextid%3DwwXIfr" target="_blank" rel="noopener noreferrer" class="social-icon fb" title="Facebook">
+    <img src="images/facebook.svg" alt="Facebook">
+  </a>
+  <a href="https://www.instagram.com/eclipsesolarblinds?igsh=MXNscTJiYjN6NHY5bA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="social-icon ig" title="Instagram">
+    <img src="images/instagram.svg" alt="Instagram">
+  </a>
+  <a href="https://www.tiktok.com/@eclipse_solar_bli?_r=1&_t=ZN-912cCXlW5Ti" target="_blank" rel="noopener noreferrer" class="social-icon ig" title="Tik Tok">
+    <img src="images/tiktok.svg" alt="Tik Tok">
+  </a>
+</div>
+  <header class="wrap">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Eclipse Solar Blinds">
+      <span>Eclipse Solar Blinds</span>
+    </a>
+    <input type="checkbox" id="nav-check" class="nav-check" aria-hidden="true">
+    <label for="nav-check" class="nav-toggle" aria-label="Меню" title="Меню">
+      <span></span><span></span><span></span>
+    </label>
+    <label for="nav-check" class="nav-overlay" aria-hidden="true"></label>
+    <nav>
+      <a href="index.html">Начало</a>
+      <a href="products.html">Продукти</a>
+      <a href="order.html">Поръчка</a>
+      <a href="about.html">За нас</a>
+      <a href="contact.html" class="active">Контакти</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1>Контакти</h1>
+    <div class="card fade-in">
+      <p>Можете да се свържете с нас по всяко време:</p>
+      <ul>
+        <li>Телефон: </li>
+        <p><strong> Николай Петров: +359 98 822 6863</strong></p> 
+        <p><strong> Денислав Йорданов: +359 88 661 3678</strong></p>
+        <p><strong> Даниел Почекански: +359 89 427 4444</strong></p>
+        <p><strong> Павел Ангелов: +359 87 968 2000</strong></p>
+        <p><strong> Радослав Петров: +359 88 456 0385</strong></p>
+
+        <li>Имейл: <a href="mailto:eclipsesolarblinds@gmail.com">eclipsesolarblinds@gmail.com</a></li>
+        <li>Адрес: София, България</li>
+      </ul>
+
+      <div style="margin-top: 30px; padding: 20px; background: #f0f7ff; border-radius: 10px; border-left: 4px solid #0b81ff;">
+        <h3 style="color: #0b81ff; margin-bottom: 10px;">Работно време</h3>
+        <p><strong>Понеделник - Петък:</strong> -</p>
+        <p><strong>Събота:</strong> -</p>
+        <p><strong>Неделя:</strong> -</p>
+        <p style="margin-top: 10px; font-style: italic;">Отговаряме на имейли и извън работно време в рамките на 24 часа.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <img src="logo.png" alt="Eclipse Solar Blinds" loading="lazy" decoding="async">
+    <p>&copy; 2026 Eclipse Solar Blinds. Всички права запазени.</p>
+    <p>
+      <a href="privacy.html" style="color: inherit; text-decoration: none;">Политика за поверителност</a> | 
+      <a href="terms.html" style="color: inherit; text-decoration: none;">Общи условия</a>
+    </p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const faders = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      faders.forEach(el => observer.observe(el));
+    });
+  </script>
+  <script src="java.js"></script>
+  <script src="chatbot.js"></script>
+  <script src="cookie-consent.js"></script>
+  <script src="newsletter.js"></script>
+  <script src="netlify-newsletter.js"></script>
+  <script>
+    // Скриване на съобщението при натискане на хиксчето
+    document.getElementById('closeNotice').addEventListener('click', () => {
+      const notice = document.getElementById('siteNotice');
+      notice.style.opacity = '0';
+      notice.style.transform = 'translateY(-10px)';
+      setTimeout(() => notice.style.display = 'none', 400);
+    });
+  </script>
+</body>
+</html>
