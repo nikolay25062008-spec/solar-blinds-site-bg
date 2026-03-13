@@ -265,7 +265,7 @@
         <div class="step" data-require="number" data-id="electricBill">
           <h3>5. Месечна сметка за ток (приблизително)</h3>
           <p style="color:#666; margin-top:-6px;">Помага за по-точна оценка на възвръщаемостта. Пример: 70 евро</p>
-          <input type="number" id="electricBill" placeholder="Сума в лева" style="padding:8px; width:220px;">
+          <input type="number" id="electricBill" placeholder="Сума в евро" style="padding:8px; width:220px;">
           <p class="error-msg">Моля, въведете число по-голямо от 0 (в евро).</p>
         </div>
 
@@ -387,16 +387,16 @@
       const paybackYears = (paybackMonths / 12).toFixed(1);
 
       resultDiv.innerHTML = `
-        💰 Ориентировъчна цена: <strong>${total.toFixed(2)} лв.</strong> (~${euro} €)<br>
-        ⚡ Потенциално спестяване: ~${savingsPercent}% (${monthlySavings.toFixed(2)} лв./месец)<br>
+        💰 Ориентировъчна цена: <strong>$ (~${euro} евро.</strong>{total.toFixed(2)} (~${euro} €)<br>
+        ⚡ Потенциално спестяване: ~${savingsPercent}% (${monthlySavings.toFixed(2)} евро./месец)<br>
         ⏳ Възвръщаемост: ~${paybackYears} години (${paybackMonths} месеца)
       `;
       // Build summary for inquiry form
-      const typeMap = { '300':'Соларен навес', '650':'Външни ролетни щори', '400':'Вътрешни хоризонтални щори', '500':'Вътрешни вертикални щори' };
+      const typeMap = { '160':'Соларен навес', '345':'Външни ролетни щори', '215':'Вътрешни хоризонтални щори', '265':'Вътрешни вертикални щори' };
       const typeVal = String(form.get('type') || '');
       const typeLabel = typeMap[typeVal] || '—';
-      const autoLabel = (String(form.get('auto')||'0') === '250') ? 'Да' : 'Не';
-      const smartLabel = (String(form.get('smart')||'0') === '150') ? 'Да' : 'Не';
+      const autoLabel = (String(form.get('auto')||'0') === '132') ? 'Да' : 'Не';
+      const smartLabel = (String(form.get('smart')||'0') === '80') ? 'Да' : 'Не';
       const summary = `Тип: ${typeLabel}\nПлощ: ${area.toFixed(2)} м²\nАвтоматизация: ${autoLabel}\nSmart Home: ${smartLabel}\nСметка за ток: ${bill} лв\nЦена: ${total.toFixed(2)} лв (~${euro} €)\nСпестяване: ~${savingsPercent}% (${monthlySavings.toFixed(2)} лв/м)\nВъзвръщаемост: ~${paybackYears} г. (${paybackMonths} м.)`;
       const hidden = document.getElementById('inquirySummary');
       if (hidden) hidden.value = summary;
