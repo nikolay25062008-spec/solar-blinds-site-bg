@@ -379,7 +379,7 @@
       const bill = parseFloat(document.getElementById("electricBill").value) || 0;
 
       let total = (type + auto + smart) * (area || 1);
-      const euro = (total / 1.95).toFixed(2);
+      const euro = total;
 
       const savingsPercent = Math.min(30, area * 5);
       const monthlySavings = bill * savingsPercent / 100;
@@ -387,7 +387,7 @@
       const paybackYears = (paybackMonths / 12).toFixed(1);
 
       resultDiv.innerHTML = `
-        💰 Ориентировъчна цена: <strong>$ (~${euro} евро.</strong>{total.toFixed(2)} (~${euro} €)<br>
+        💰 Ориентировъчна цена: <strong>$ ${euro} евро.</strong><br>
         ⚡ Потенциално спестяване: ~${savingsPercent}% (${monthlySavings.toFixed(2)} евро./месец)<br>
         ⏳ Възвръщаемост: ~${paybackYears} години (${paybackMonths} месеца)
       `;
